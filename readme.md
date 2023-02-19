@@ -1,1 +1,1 @@
-https://myapi-h-genie.koyeb.app
+https://myapi-h-genie.koyeb.app/docs
