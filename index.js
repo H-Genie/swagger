@@ -7,7 +7,7 @@ const app = express();
 require('dotenv').config();
 
 // swagger
-const { swaggerUi, specs } = require("./swagger/swagger")
+const { swaggerUi, specs } = require("./swagger")
 
 // mongoose
 const mongoose = require('mongoose');
@@ -26,17 +26,17 @@ const server = async () => {
             res.header("Access-Control-Allow-Origin", "*");
             next();
         });
-        app.use(express.static("client/build"));
+        app.use(express.static("public"));
         app.use(express.json());
-        app.use("/docs", swaggerUi.serve, swaggerUi.setup(specs))
 
         // router
         app.get("/", (_, res) => {
-            res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
+            res.sendFile(path.resolve(__dirname, "public", "index.html"));
         });
         app.use('/patient', patientRouter);
         app.use('/stat', statRouter);
         app.use('/list', listRouter);
+        app.use("/docs", swaggerUi.serve, swaggerUi.setup(specs))
 
         // port
         app.listen(PORT, () => console.log(`server listening on port ${PORT}`));
